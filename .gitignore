@@ -1,0 +1,28 @@
+# IntelliJ
+*.ipr
+*.iml
+*.iws
+
+*.DS_Store
+
+**/target/*
+
+# Docker stuff
+docker/nginx/log/*
+docker/nginx/socialmedia/*
+docker/mgnl_author/author.jar
+docker/mgnl_public/public.jar
+docker-compose.override.yml
+
+
+# Magnolia
+.idea
+magnolia/demo-website-webapp/overlays/
+magnolia/demo-website-webapp/repositories/
+magnolia/demo-website-webapp/src/main/webapp/WEB-INF/config/author/magnolia-activation-keypair.properties
+*.jar
+
+# Hibiscus
+hibiscus/hibiscus-ui/package-lock.json
+hibiscus/hibiscus-ui/patternlab.json
+hibiscus/hibiscus-ui/source/bower_components/

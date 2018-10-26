@@ -1,0 +1,48 @@
+version: "3.0"
+services:
+  mysql:
+    image: mysql:5.7
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=no-secret
+      - MYSQL_DATABASE=demo_author
+    volumes:
+      - "./docker/mysql/scripts:/docker-entrypoint-initdb.d"
+      - "./docker/mysql/conf.d/custom.cnf://etc/mysql/conf.d/docker.cnf"
+
+
+  esc:
+    image: elasticsearch:5.5
+    ports:
+      - "9200:9200"
+
+  nginx:
+    build: ./docker/nginx
+    volumes:
+      - "./docker/nginx/log:/var/log/nginx"
+      - "./docker/nginx/cache:/opt/vwtab/proxy_cache"
+      - "./docker/nginx/socialmedia:/opt/vwtab/socialmedia"
+      - "./docker/nginx/apidoc:/opt/vwtab/apidoc"
+    ports:
+      - "80:80"
+      - "443:443"
+
+#  mgnl_public:
+#    build: ./docker/mgnl_public
+#    ports:
+#      - "8181:8080"
+#    volumes:
+#      - "./hibiscus/hibiscus-ui/target/magnolia-resources:/hibiscus"
+#      - "./magnolia/vw-tab-website-webapp/repositories/public:/repository"
+#      - "./docker/mgnl_public:/webapp"
+#    depends_on:
+#      - "mysql"
+#    entrypoint: dockerize -wait tcp://mysql:3306 -timeout 120s java -jar /webapp/public.jar
+
+  smtpDebug:
+    image: mailhog/mailhog
+    ports:
+      - "25:25"
+      - "1025:1025"
+      - "8025:8025"

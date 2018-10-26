@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>c3.c3.demo.website</groupId>
+        <artifactId>demo-website</artifactId>
+        <version>${globalVersion}</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <groupId>co.c3.vw.tab.website</groupId>
+    <artifactId>vw-tab-shortnews-app-module</artifactId>
+    <packaging>jar</packaging>
+    <name>vw-tab-shortnews-app-module Magnolia Module</name>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>info.magnolia</groupId>
+            <artifactId>magnolia-core</artifactId>
+            <version>${magnoliaBundleVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>co.c3.magnolia</groupId>
+            <artifactId>c3-magnolia-core</artifactId>
+            <version>${c3MagnoliaCoreVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombokVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>co.c3.magnolia</groupId>
+            <artifactId>c3-magnolia-standard-components-module</artifactId>
+            <version>${c3MagnoliaStandardComponentsVersion}</version>
+        </dependency>
+
+
+
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.5.1</version>
+                <configuration>
+                    <source>${javaVersion}</source>
+                    <target>${javaVersion}</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok-maven-plugin</artifactId>
+                <version>1.16.8.0</version>
+                <executions>
+                    <execution>
+                        <id>delombok</id>
+                        <goals>
+                            <goal>delombok</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/delombok</outputDirectory>
+                            <addOutputDirectory>false</addOutputDirectory>
+                            <sourceDirectory>src/main/java</sourceDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>testDelombok</id>
+                        <goals>
+                            <goal>testDelombok</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/test-delombok</outputDirectory>
+                            <addOutputDirectory>false</addOutputDirectory>
+                            <sourceDirectory>src/test/java</sourceDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+
+        <!-- default resources configuration which will filter the module descriptor -->
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*</include>
+                </includes>
+            </resource>
+            <resource>
+                <filtering>true</filtering>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>META-INF/magnolia/*</include>
+                </includes>
+            </resource>
+        </resources>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>coverage-per-test</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>2.13</version>
+                        <configuration>
+                            <properties>
+                                <property>
+                                    <name>listener</name>
+                                    <value>org.sonar.java.jacoco.JUnitListener</value>
+                                </property>
+                            </properties>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+
+            <dependencies>
+                <dependency>
+                    <groupId>org.sonarsource.java</groupId>
+                    <artifactId>sonar-jacoco-listeners</artifactId>
+                    <version>3.8</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+    </profiles>
+
+</project>

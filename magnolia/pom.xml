@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>c3.c3.demo.website</groupId>
+    <artifactId>demo-website</artifactId>
+    <name>demo-website (parent pom)</name>
+    <version>${globalVersion}</version>
+    <packaging>pom</packaging>
+
+    <properties>
+        <globalVersion>1.0.0-SNAPSHOT</globalVersion>
+        <magnoliaBundleVersion>5.6.7</magnoliaBundleVersion>
+        <magnoliaDamVersion>2.3.2</magnoliaDamVersion>
+
+        <mysqlVersion>5.1.6</mysqlVersion>
+        <lombokVersion>1.16.8</lombokVersion>
+
+        <c3MagnoliaCoreVersion>5.6.12</c3MagnoliaCoreVersion>
+        <c3MagnoliaStandardComponentsVersion>5.6.12</c3MagnoliaStandardComponentsVersion>
+        <c3MagnoliaVideoModuleVersion>5.6.10</c3MagnoliaVideoModuleVersion>
+
+        <javaVersion>1.8</javaVersion>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <src.dir>src/main/java</src.dir>
+        <test.src.dir>src/test/java</test.src.dir>
+    </properties>
+
+    <!-- Fill the following in, so you can use the release plugin -->
+    <scm>
+        <connection/>
+        <developerConnection/>
+        <url/>
+    </scm>
+
+    <dependencyManagement>
+        <dependencies>
+
+            <!-- Option A -->
+            <!-- Importing dependencyManagement of CE bundle. -->
+            <dependency>
+                <groupId>info.magnolia.bundle</groupId>
+                <artifactId>magnolia-bundle-parent</artifactId>
+                <version>${magnoliaBundleVersion}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- Option B -->
+            <!-- If you want to use the Enterprise Edition. -->
+            <!--
+            <dependency>
+              <groupId>info.magnolia.eebundle</groupId>
+              <artifactId>magnolia-enterprise-bundle-parent</artifactId>
+              <version>${magnoliaBundleVersion}</version>
+              <type>pom</type>
+              <scope>import</scope>
+            </dependency>
+            -->
+
+            <!-- MYSQL -->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysqlVersion}</version>
+            </dependency>
+
+            <!-- LOMBOK -->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombokVersion}</version>
+                <scope>provided</scope>
+            </dependency>
+
+
+            <!-- C3 Modules -->
+            <dependency>
+                <groupId>co.c3.magnolia</groupId>
+                <artifactId>c3-magnolia-core</artifactId>
+                <version>${c3MagnoliaCoreVersion}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>co.c3.magnolia</groupId>
+                <artifactId>c3-magnolia-standard-components-module</artifactId>
+                <version>${c3MagnoliaStandardComponentsVersion}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>co.c3.magnolia</groupId>
+                <artifactId>c3-magnolia-video-module</artifactId>
+                <version>${c3MagnoliaVideoModuleVersion}</version>
+            </dependency>
+
+
+        </dependencies>
+    </dependencyManagement>
+
+    <!-- NECESSARY FOR JAVADOC GENERATION -->
+    <dependencies>
+        <dependency>
+            <groupId>co.c3.magnolia</groupId>
+            <artifactId>c3-magnolia-video-module</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.7.0</version>
+                <configuration>
+                    <source>${javaVersion}</source>
+                    <target>${javaVersion}</target>
+                </configuration>
+            </plugin>
+        </plugins>
+
+        <!-- default resources configuration which will filter your module descriptors -->
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*</include>
+                </includes>
+            </resource>
+            <resource>
+                <filtering>true</filtering>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>META-INF/magnolia/*</include>
+                </includes>
+            </resource>
+        </resources>
+    </build>
+
+    <repositories>
+
+        <repository>
+            <id>nexus</id>
+            <url>https://nexus.c3.co/repository/maven-central/</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>daily</updatePolicy>
+            </releases>
+        </repository>
+
+        <repository>
+            <id>magnolia.public</id>
+            <url>https://nexus.magnolia-cms.com/content/groups/public</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </repository>
+
+        <repository>
+            <id>c3releases</id>
+            <url>https://nexus.c3.co/repository/maven-releases/</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </repository>
+
+        <repository>
+            <id>c3nexus</id>
+            <url>https://nexus.c3.co/repository/maven-snapshots/</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+
+        <repository>
+            <id>projectlombok.org</id>
+            <url>http://projectlombok.org/mavenrepo</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </repository>
+
+        <!-- IF YOU NEED MODULES FROM THE ENTERPRISE VERSION, UNCOMMENT THE FOLLOWING REPOSITORY -->
+        <!--
+        <repository>
+          <id>magnolia.enterprise.releases</id>
+          <url>https://nexus.magnolia-cms.com/content/repositories/magnolia.enterprise.releases</url>
+          <snapshots>
+            <enabled>false</enabled>
+          </snapshots>
+        </repository>
+        -->
+        <repository>
+            <id>vaadin-addons</id>
+            <url>https://maven.vaadin.com/vaadin-addons</url>
+        </repository>
+    </repositories>
+
+    <profiles>
+        <profile>
+            <id>c3nexus</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <version>1.5.1</version>
+                        <executions>
+                            <execution>
+                                <id>default-deploy</id>
+                                <phase>deploy</phase>
+                                <goals>
+                                    <goal>deploy</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <serverId>c3nexus</serverId>
+                            <nexusUrl>https://nexus.c3.co/repository/maven-releases/</nexusUrl>
+                            <skipStaging>true</skipStaging>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+
+    </profiles>
+
+    <modules>
+        <module>demo-website-webapp</module>
+        <module>demo-website-module</module>
+        <module>vw-tab-shortnews-app-module</module>
+    </modules>
+</project>

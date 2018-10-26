@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE module SYSTEM "module.dtd" >
+<module>
+    <name>vw-tab-shortnews-app-module</name>
+    <displayName>Shortnews App Module</displayName>
+    <description>VW TAB Shortnews App Module</description>
+    <class>co.c3.vw.tab.module.shortnews.VwTabShortnewsAppModule</class>
+    <version>${project.version}</version>
+
+    <dependencies>
+        <dependency>
+            <name>core</name>
+            <version>5.5.6/*</version>
+        </dependency>
+        <dependency>
+            <name>ui-admincentral</name>
+            <version>5.5.6/*</version>
+        </dependency>
+        <dependency>
+            <name>ui-contentapp</name>
+            <version>5.5.6/*</version>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <name>dam-app</name>
+            <version>2.2.6/*</version>
+        </dependency>
+    </dependencies>
+
+    <repositories>
+        <repository>
+            <name>magnolia</name>
+            <workspaces>
+                <workspace>shortnews</workspace>
+            </workspaces>
+            <nodeTypeFile>/mgnl-nodetypes/vw-tab-shortnews-app-module-nodetypes.xml</nodeTypeFile>
+        </repository>
+    </repositories>
+</module>

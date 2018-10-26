@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE module SYSTEM "module.dtd" >
+<module>
+    <name>demo-website-module</name>
+    <displayName>${project.name}</displayName>
+    <description>${project.description}</description>
+    <class>co.c3.demo.website.DemoWebsiteModule</class>
+    <versionHandler>co.c3.demo.website.setup.DemoWebsiteModuleVersionHandler</versionHandler>
+    <version>${project.version}</version>
+
+    <!-- For more information on module descriptor configuration options -->
+    <!-- https://documentation.magnolia-cms.com/display/DOCS/XML-based+module+descriptor -->
+
+    <components>
+        <id>main</id>
+
+        <component>
+            <type>co.c3.magnolia.core.service.ConfigService</type>
+            <implementation>co.c3.magnolia.core.service.impl.DefaultConfigService</implementation>
+            <scope>singleton</scope>
+        </component>
+
+        <component>
+            <type>co.c3.magnolia.core.service.AssetService</type>
+            <implementation>co.c3.demo.website.service.impl.DefaultConfigurableAssetService</implementation>
+            <scope>singleton</scope>
+        </component>
+
+        <component>
+            <type>co.c3.magnolia.core.service.BeanService</type>
+            <implementation>co.c3.magnolia.core.service.impl.DefaultBeanService</implementation>
+            <scope>singleton</scope>
+        </component>
+
+        <component>
+            <type>co.c3.magnolia.core.service.BreadcrumbService</type>
+            <implementation>co.c3.magnolia.core.service.impl.DefaultBreadcrumbService</implementation>
+            <scope>singleton</scope>
+        </component>
+    </components>
+
+    <dependencies>
+        <dependency>
+            <name>core</name>
+            <version>*</version>
+        </dependency>
+        <!--  Add other dependencies here, e.g the mte (magnolia templating essentials).
+        <dependency>
+          <name>mte</name>
+          <version>0.7/*</version>
+        </dependency>
+        -->
+    </dependencies>
+</module>
